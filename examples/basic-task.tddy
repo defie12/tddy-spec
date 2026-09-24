@@ -1,0 +1,9 @@
+{
+  "header": "TODODONEYET_TASK",
+  "title": "Meeting",
+  "description": "shop meeting",
+  "urgency": 1,
+  "mode": "DONE_YET",
+  "activation": 1790031600000,
+  "anchor": "19:00"
+}
