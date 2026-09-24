@@ -1,0 +1,9 @@
+{
+  "header": "TODODONEYET_TASK",
+  "title": "Complete project",
+  "description": "Finish the project before the deadline",
+  "urgency": 3,
+  "mode": "RELENTLESS_MODE",
+  "activation": 1790031600000,
+  "anchor": "19:00"
+}
