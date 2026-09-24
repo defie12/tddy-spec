@@ -8,26 +8,12 @@ A `.tddy` file represents an individual TodoDoneYet task in JSON format.
 
 The format is designed for sharing and transferring individual tasks between compatible TodoDoneYet installations.
 
-## Example
-
-Here is an example of a `.tddy` task file:
-
-```json
-{
-  "header": "TODODONEYET_TASK",
-  "title": "Meeting",
-  "description": "shop meeting",
-  "urgency": 1,
-  "mode": "DONE_YET",
-  "activation": 1790031600000,
-  "anchor": "19:00"
-}
+## Examples
 
 Example `.tddy` task files are available in the [`examples/`](examples/) directory.
 
 - [`basic-task.tddy`](examples/basic-task.tddy) — Basic TodoDoneYet task
 - [`modes.tddy`](examples/modes.tddy) — Example using task modes
-```
 
 ## File Extension
 
