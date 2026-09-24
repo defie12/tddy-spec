@@ -1,16 +1,16 @@
 # TodoDoneYet Task File Format (.tddy)
 
-The **TodoDoneYet Task File Format (`.tddy`)** is an open, documented, JSON-based file format used by **TodoDoneYet** to exchange individual tasks.
+The **TodoDoneYet Task File Format (.tddy)** is an open, documented, JSON-based file format used by **TodoDoneYet** to exchange individual tasks.
 
 ## About
 
-A `.tddy` file represents a TodoDoneYet task in a portable JSON format.
+A `.tddy` file represents an individual TodoDoneYet task in JSON format.
 
-The format is designed to allow individual tasks to be shared, transferred, backed up, and imported between compatible TodoDoneYet installations.
+The format is designed for sharing and transferring individual tasks between compatible TodoDoneYet installations.
 
 ## Example
 
-A `.tddy` file may contain a task such as:
+Here is an example of a `.tddy` task file:
 
 ```json
 {
@@ -22,39 +22,51 @@ A `.tddy` file may contain a task such as:
   "activation": 1790031600000,
   "anchor": "19:00"
 }
-File Extension
-TodoDoneYet task files use:
-.tddy
-Format
-.tddy files use UTF-8 encoded JSON.
+```
+
+## File Extension
+
+TodoDoneYet task files use the `.tddy` file extension.
+
+## Format
+
+`.tddy` files use JSON.
+
 The root element is a JSON object representing an individual task.
-Current Specification
-The .tddy specification is being documented and versioned publicly in this repository.
-As the format evolves, this repository will document:
-Supported fields
-Field types
-Required and optional fields
-Urgency levels
-Task modes
-Date and time representation
-Import and export behavior
-Compatibility rules
-Version history
-JSON Schema
-Compatibility
-Applications implementing the .tddy format should preserve unknown fields when possible so that future versions of the format can remain compatible with existing data.
-Official Project
-.tddy is the task file format associated with TodoDoneYet.
-The TodoDoneYet application is developed by Future Techware Ltd.
-Specification Status
-Status: Initial public documentation
-This repository is the public home of the .tddy format specification.
-License
-The specification documentation in this repository is intended to be openly available for developers and software projects that wish to understand or implement the .tddy format.
 
-### Important
+## Specification
 
-Notice the three backticks **after the JSON**:
+This repository documents the TodoDoneYet Task File Format.
 
-```text
-}
+The specification will document:
+
+- Supported fields
+- Field types
+- Required and optional fields
+- Urgency levels
+- Task modes
+- Date and time representation
+- Import and export behavior
+- Compatibility rules
+- Version history
+- JSON Schema
+
+## Compatibility
+
+Applications implementing the `.tddy` format should preserve unknown fields when possible so that future versions of the format can remain compatible with existing data.
+
+## Official Project
+
+The `.tddy` format is associated with **TodoDoneYet**.
+
+The TodoDoneYet application is developed by **Future Techware Ltd.**
+
+## Specification Status
+
+**Initial public documentation**
+
+This repository is the public home of the TodoDoneYet Task File Format specification.
+
+## License
+
+The specification documentation in this repository is intended to be openly available for developers and software projects that wish to understand or implement the `.tddy` format.
