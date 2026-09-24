@@ -66,6 +66,11 @@ The TodoDoneYet application is developed by **Future Techware Ltd.**
 
 This repository is the public home of the TodoDoneYet Task File Format specification.
 
+## Specification
+
+- [TDDY Format Specification](TDDY_FORMAT_SPECIFICATION.md)
+- [JSON Schema](tddy-schema.json)
+
 ## License
 
 The specification documentation in this repository is intended to be openly available for developers and software projects that wish to understand or implement the `.tddy` format. by
