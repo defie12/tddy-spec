@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TodoDoneYet Task File",
+  "description": "JSON Schema for the TodoDoneYet Task File Format (.tddy).",
+  "type": "object",
+  "required": [
+    "header",
+    "title",
+    "urgency",
+    "mode"
+  ],
+  "properties": {
+    "header": {
+      "type": "string",
+      "const": "TODODONEYET_TASK"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "integer",
+      "enum": [1, 2, 3, 4]
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "SIMPLE_MODE",
+        "DONE_YET",
+        "RELENTLESS_MODE"
+      ]
+    },
+    "activation": {
+      "type": "integer"
+    },
+    "anchor": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
