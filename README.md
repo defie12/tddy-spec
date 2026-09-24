@@ -22,6 +22,11 @@ Here is an example of a `.tddy` task file:
   "activation": 1790031600000,
   "anchor": "19:00"
 }
+
+Example `.tddy` task files are available in the [`examples/`](examples/) directory.
+
+- [`basic-task.tddy`](examples/basic-task.tddy) — Basic TodoDoneYet task
+- [`modes.tddy`](examples/modes.tddy) — Example using task modes
 ```
 
 ## File Extension
