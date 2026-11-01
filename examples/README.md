@@ -6,11 +6,15 @@ This directory contains example files demonstrating the TodoDoneYet Task File Fo
 
 ### `basic-task.tddy`
 
-A basic TodoDoneYet task showing the required task structure and common fields.
+A basic TodoDoneYet task demonstrating `DONE_YET` mode and common task fields.
 
 ### `modes.tddy`
 
 An example demonstrating a task using `RELENTLESS_MODE`.
+
+### `simple-mode.tddy`
+
+An example demonstrating `SIMPLE_MODE` with the optional `anchor` field omitted.
 
 ## Using the Examples
 
