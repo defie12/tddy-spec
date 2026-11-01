@@ -1,351 +1,342 @@
-TodoDoneYet Task File Format (.tddy)
+TodoDoneYet Task File Format Specification
 
-Format: TodoDoneYet Task File Format
-Extension: ".tddy"
-Data Structure: JSON
-Specification Version: 1.0.0
-Header Identifier: "TODODONEYET_TASK"
+1. Overview
 
-1. Introduction
+".tddy" is a JSON-based file format used by TodoDoneYet to exchange individual tasks.
 
-The TodoDoneYet Task File Format (".tddy") is a lightweight, structured file format designed to represent and exchange individual tasks between applications, devices, users, and compatible software systems.
+Each ".tddy" file represents one task.
 
-A ".tddy" file contains one task represented as a JSON object.
+The format is designed to support task creation, exporting, sharing, importing, and interpretation by compatible applications and software systems.
 
-The format is designed to support:
+2. File Extension
 
-- Task creation and export.
-- Task sharing between users.
-- Importing tasks into TodoDoneYet.
-- Sharing through Bluetooth file transfer and social applications.
-- Machine-readable task validation.
-- AI-assisted task generation and interpretation.
-- Integration with third-party productivity tools.
+The file extension is:
 
-The format is intended to remain simple, portable, and independent of any particular application or operating system.
+".tddy"
 
-2. File Structure
+A ".tddy" file contains a JSON object representing one task.
 
-A valid ".tddy" file contains a single JSON object.
+3. Format Structure
 
-Every valid task file must include:
+Each ".tddy" file contains one JSON object.
+
+The object uses a defined set of required and optional fields.
+
+The required header value is:
+
+"TODODONEYET_TASK"
+
+This identifies the JSON object as a TodoDoneYet task.
+
+4. Fields
+
+The format defines the following fields:
+
+Field| Required| Type
+"header"| Yes| String
+"title"| Yes| String
+"description"| No| String
+"urgency"| Yes| Integer
+"mode"| Yes| String
+"activation"| No| Integer
+"anchor"| No| String
+
+4.1 header
+
+Identifies the file as a TodoDoneYet task.
+
+Required value:
+
+"TODODONEYET_TASK"
+
+4.2 title
+
+Contains the task title or main instruction.
+
+Example: ""Call Dad""
+
+4.3 description
+
+Optional additional information about the task.
+
+Example: ""Discuss weekend plans""
+
+4.4 urgency
+
+Defines the task's urgency level.
+
+Accepted values are integers from 1 to 4.
+
+4.5 mode
+
+Defines the reminder behavior associated with the task.
+
+Supported values:
+
+- "SIMPLE_MODE"
+- "DONE_YET"
+- "RELENTLESS_MODE"
+
+4.6 activation
+
+Optional Unix timestamp in milliseconds representing the date and time when the task alarm activates.
+
+TodoDoneYet uses the user's local time when interpreting and presenting the activation time.
+
+4.7 anchor
+
+An optional daily recurring reminder time.
+
+The expected format is "HH:mm", using the 24-hour clock.
+
+Example: ""19:00""
+
+TodoDoneYet uses the user's local time.
+
+5. Required Fields
+
+The required fields are:
 
 - "header"
 - "title"
 - "urgency"
 - "mode"
 
-Optional fields include:
+A file missing any required field is not a valid ".tddy" task.
+
+6. Optional Fields
+
+The optional fields are:
 
 - "description"
 - "activation"
 - "anchor"
 
-The header must contain the exact identifier:
+Optional fields may be omitted when they are not needed.
 
-"TODODONEYET_TASK"
+7. Urgency Levels
 
-This identifier allows compatible applications to recognize a TodoDoneYet task file.
+The supported urgency levels are:
 
-3. Field Definitions
+Value| Level
+1| Low
+2| Medium
+3| High
+4| Extreme
 
-3.1 header
+Urgency determines the pulse interval used by TodoDoneYet.
 
-- Type: String
-- Required: Yes
-- Value: "TODODONEYET_TASK"
+The pulse interval is calculated by TodoDoneYet and is not stored in the ".tddy" file.
 
-Identifies the file as a TodoDoneYet task.
+8. Task Modes
 
-Applications should check this field before accepting an imported file.
-
-3.2 title
-
-- Type: String
-- Required: Yes
-
-Contains the task name or main instruction.
-
-Example:
-
-""title": "Call Dad""
-
-3.3 description
-
-- Type: String
-- Required: No
-
-Provides additional information about the task.
-
-Example:
-
-""description": "Discuss the weekend plans""
-
-The field may be omitted when no additional information is needed.
-
-3.4 urgency
-
-- Type: Integer
-- Required: Yes
-- Allowed values: 1–4
-
-Defines the urgency level of the task.
-
-Value| Level| Meaning
-1| Low| Minimal urgency
-2| Medium| Moderate urgency
-3| High| Important task requiring attention
-4| Extreme| Highest urgency
-
-Urgency determines the reminder pulse interval and influences the task's reminder intensity.
-
-The exact pulse intervals and reminder algorithms are implementation-specific.
-
-3.5 mode
-
-- Type: String
-- Required: Yes
-
-Defines the task's reminder behavior.
-
-Three modes are supported:
+Three reminder modes are supported.
 
 SIMPLE_MODE
 
-Normal alarm behavior. Provides a straightforward reminder without adaptive escalation.
+Provides normal alarm behavior.
 
 DONE_YET
 
-Uses moderately escalating and adaptive reminder behavior to encourage task completion.
+Provides adaptive reminders that respond to the user's behavior toward the task.
 
 RELENTLESS_MODE
 
-Uses persistent reminder behavior that can remain constant or escalate, adapting to user behavior.
+Provides escalating reminders that continue to escalate rather than adapting to the user's behavior.
 
-Valid values:
+The task mode determines the reminder behavior, while urgency determines the pulse interval.
 
-- "SIMPLE_MODE"
-- "DONE_YET"
-- "RELENTLESS_MODE"
+9. Activation
 
-Applications should not substitute an unknown mode with a different mode without informing the user.
+The "activation" field contains the Unix timestamp in milliseconds representing the date and time when the task alarm activates.
 
-3.6 activation
+TodoDoneYet uses the user's local time when interpreting and displaying the activation time.
 
-- Type: Integer
-- Required: No
+The field is optional.
 
-Contains a Unix timestamp in milliseconds representing the task's activation date.
+10. Anchor
 
-It determines when the task becomes active.
+The "anchor" field contains a daily recurring reminder time.
 
-Example:
-
-""activation": 1790031600000"
-
-Applications should interpret and display the activation date using the appropriate local date and time context.
-
-When omitted, the application may use its default activation behavior.
-
-3.7 anchor
-
-- Type: String
-- Required: No
-
-Defines a daily recurring local-time anchor for the task.
-
-Format:
+The expected format is:
 
 "HH:mm"
 
-Uses the 24-hour clock.
+Example:
 
-Examples:
+"19:00"
 
-- "07:00"
-- "12:30"
-- "19:00"
-- "21:00"
+The time uses the 24-hour clock and is interpreted using the user's local time.
 
-The anchor represents the daily time associated with the task's reminder schedule.
+The field is optional.
 
-When omitted, the application may use its default scheduling behavior.
+11. Reminder Behavior
 
-4. Task Modes and Urgency
+TodoDoneYet determines the pulse interval from the task's urgency.
 
-Urgency and mode serve different purposes.
+The pulse interval is not stored in the ".tddy" file.
 
-Urgency determines the task's reminder pulse interval.
+The reminder mode determines how the application handles reminders.
 
-Mode determines the overall reminder behavior.
+Activation and anchor provide scheduling information.
 
-Both values work together to define how an application handles task reminders.
+If neither activation nor anchor is provided, the pulse interval is used first.
 
-The exact timing, escalation algorithms, and adaptation logic are implementation-specific.
+The exact pulse intervals and reminder implementation are determined by TodoDoneYet.
 
-The file format describes the intended behavior without requiring every compatible application to implement identical reminder algorithms.
+12. Validation
 
-5. Scheduling Rules
+TodoDoneYet validates ".tddy" files when they are opened or imported.
 
-The "activation" and "anchor" fields are optional and independent.
+Validation includes:
 
-- "activation" identifies the date from which the task becomes active.
-- "anchor" identifies a recurring daily local-time reference.
-- Both may be provided together.
-- Either field may be omitted.
-- Both may be omitted.
+- Checking that the file contains valid JSON.
+- Checking the required header value.
+- Checking that all required fields are present.
+- Checking field data types.
+- Checking supported urgency values.
+- Checking supported task modes.
+- Checking optional scheduling values when present.
 
-Applications should preserve supplied scheduling information when importing and exporting tasks.
+The required header value is:
 
-6. File Sharing
+"TODODONEYET_TASK"
 
-The ".tddy" format is designed to support portable task sharing.
+Invalid files should not be imported as valid tasks.
 
-A ".tddy" file can be distributed as a normal file attachment through supported sharing methods.
+The published JSON Schema provides machine-readable validation rules for compatible implementations.
 
-6.1 Bluetooth Sharing
+13. Privacy and Import
 
-Users can share ".tddy" files between compatible devices using Bluetooth file transfer where supported by the operating system.
+".tddy" files do not require user information or device information.
 
-The receiving device should retain the ".tddy" file extension and its original JSON contents.
+They are designed for sharing individual tasks and importing them into TodoDoneYet.
 
-6.2 Social Applications
+A ".tddy" file represents task information rather than an entire user account or application database.
+
+Imported tasks should be processed as task data and should not automatically overwrite unrelated user information or existing tasks.
+
+14. File Sharing and Distribution
+
+".tddy" files are designed to be portable and shareable between users and compatible applications.
+
+Supported distribution methods may include:
+
+14.1 Bluetooth File Transfer
+
+Users can share ".tddy" files between supported devices using Bluetooth file transfer.
+
+The receiving device can open the transferred file with TodoDoneYet or another compatible application.
+
+14.2 Social and Messaging Applications
 
 Users can share ".tddy" files through social and messaging applications that support document or file attachments.
 
-Examples include applications that allow users to send documents rather than only text or images.
+Examples include sharing through WhatsApp, Telegram, email, and other applications that support file transfers.
 
-The file should preferably be shared as an attachment instead of copying its JSON contents into a message.
+The file should be shared as an attachment so that its original contents and ".tddy" extension can be preserved.
 
-Some platforms may modify filenames or prevent certain file attachments. Compatible applications should account for these limitations.
-
-6.3 Other Sharing Methods
+14.3 Other File-Sharing Methods
 
 The format is not restricted to Bluetooth or social applications.
 
-Other supported methods may include:
+It can also be distributed through:
 
-- Email attachments.
 - Cloud storage.
-- File transfer applications.
-- USB file transfer.
 - Direct downloads.
-- Other compatible file-sharing services.
+- USB file transfers.
+- Email attachments.
+- Other file-sharing services.
 
-The ".tddy" format does not depend on a particular transfer method.
+Actual sharing and receiving capabilities depend on the operating system and the applications involved.
 
-7. Importing and Validation
+15. Importing Shared Tasks
 
-A compatible application should support the following import process:
+Compatible applications should allow users to open or import ".tddy" files received through supported sharing methods.
 
-1. Receive or open a ".tddy" file.
+A recommended import process is:
+
+1. Receive or open the ".tddy" file.
 2. Read its JSON contents.
-3. Confirm that the contents form a valid JSON object.
-4. Verify the "header" identifier.
-5. Validate required fields and data types.
-6. Check urgency and mode values.
-7. Validate optional scheduling fields when present.
-8. Present the task for import or process it according to the application's import workflow.
+3. Validate the JSON structure.
+4. Verify the required header.
+5. Validate the required fields and supported values.
+6. Process the task information.
+7. Present or add the task according to the application's import workflow.
 
-Invalid files should be rejected with a useful error message.
+Applications should provide useful feedback when an imported file is invalid or unsupported.
 
-Applications should not silently accept invalid required fields or unsupported mode values.
+The file format does not require a particular sharing interface or import screen.
 
-The published JSON Schema should be used for machine-readable validation.
+16. AI and Machine Readability
 
-8. AI and Machine Readability
+The ".tddy" format is structured to be readable by conventional software and AI systems.
 
-The ".tddy" format is designed to be readable by humans, conventional software, and AI systems.
+Systems that understand this specification can:
 
-An AI system with access to this specification can:
-
-- Recognize a TodoDoneYet task file.
-- Interpret its task fields.
+- Identify TodoDoneYet task files.
+- Read and interpret task fields.
 - Understand urgency levels.
-- Understand supported task modes.
+- Understand supported reminder modes.
 - Interpret activation and anchor information.
-- Generate valid ".tddy" task files.
-- Convert task information into other supported formats.
-- Assist with task creation from natural-language instructions.
+- Generate structured ".tddy" files.
+- Convert task information into other formats.
+- Assist users in creating tasks from natural-language instructions.
 
-AI systems should follow the published specification and JSON Schema rather than guessing the meaning of fields.
+AI systems should follow the published specification and JSON Schema when generating or interpreting ".tddy" files.
 
-The file extension alone does not guarantee validity.
+Generated files should be validated before import.
 
-Generated files should be validated before being imported into a compatible application.
+17. JSON Schema
 
-9. Privacy and Data Structure
+The repository provides a JSON Schema for validating ".tddy" files.
 
-The ".tddy" format represents an individual task.
-
-It does not require:
-
-- User identification.
-- Device identification.
-- Account credentials.
-- Passwords.
-- Personal profile information.
-- Device-specific configuration.
-
-Applications should manage user identity, account information, and device-specific settings separately from the task file.
-
-This keeps shared task files portable and reduces unnecessary exposure of personal information.
-
-10. JSON Schema
-
-A machine-readable JSON Schema is provided in:
+Location:
 
 "schema/tddy.schema.json"
 
-The schema defines the structure, required properties, supported values, and validation rules for ".tddy" files.
+The schema defines the machine-readable structure and validation rules for the format.
 
-Developers should use the published schema when implementing importers, exporters, validators, and other compatible tools.
+Developers building compatible applications and tools are encouraged to use it.
 
-11. Examples
+18. Compatibility and Versioning
 
-Example files are available in the "examples/" directory.
+The ".tddy" format currently does not store a version number inside individual task files.
 
-- "basic-task.tddy" — Basic task example.
-- "modes.tddy" — Example using RELENTLESS_MODE.
+The required header remains:
 
-These examples demonstrate how valid task files should be structured.
+"TODODONEYET_TASK"
 
-12. Compatibility and Implementation
+Future changes to the specification should preserve compatibility whenever possible.
 
-The ".tddy" format is intended to be application-independent.
+Changes affecting field definitions, supported values, or validation rules should be reflected in the specification, JSON Schema, and relevant examples.
 
-Developers may implement support in:
+19. Example
 
-- Android applications.
-- iOS applications.
-- Desktop applications.
-- Web applications.
-- AI-powered productivity tools.
-- Task management systems.
-- Automation and productivity software.
+A valid ".tddy" task file:
 
-Compatible implementations should preserve the defined field meanings and validation requirements.
+{
+  "header": "TODODONEYET_TASK",
+  "title": "Meeting",
+  "description": "shop meeting",
+  "urgency": 1,
+  "mode": "DONE_YET",
+  "activation": 1790031600000,
+  "anchor": "19:00"
+}
 
-Applications may implement their own reminder interfaces and scheduling algorithms while respecting the meaning of the supplied task data.
+20. Implementation Independence
 
-13. Specification Evolution
+The ".tddy" format is not restricted to TodoDoneYet as an application.
 
-This document describes version 1.0.0 of the TodoDoneYet Task File Format.
+Other developers may implement support for the format in Android, iOS, desktop, web, AI-powered, and other productivity applications.
 
-Changes to the format should be documented and reflected in the JSON Schema and relevant examples.
+Compatible implementations should preserve the defined field meanings, urgency levels, task modes, and scheduling information.
 
-Changes should prioritize backward compatibility whenever possible.
-
-The format should remain lightweight and focused on representing one task per file.
-
-14. License
-
-The specification is published under the license included in this repository.
-
-Developers are encouraged to implement, integrate, and support the ".tddy" format in their own applications in accordance with that license.
+Reminder algorithms and user interfaces may differ between applications.
 
 ---
 
 TodoDoneYet Task File Format (.tddy)
 
-A portable task format designed for sharing, importing, interpreting, and exchanging tasks across compatible applications and systems.
+A portable, structured task format for creating, sharing, importing, and exchanging individual tasks.
