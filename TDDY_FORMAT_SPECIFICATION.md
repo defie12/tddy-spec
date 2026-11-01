@@ -190,13 +190,18 @@ TodoDoneYet validates `.tddy` files when they are opened or imported.
 Validation includes:
 
 - Checking that the file contains valid JSON.
-- Checking the required header value.
+- Checking that the root value is a JSON object.
+- Checking that the required header value is "TODODONEYET_TASK".
 - Checking that all required fields are present.
+- Checking that "title" is a non-empty string.
 - Checking field data types.
-- Checking supported urgency values.
-- Checking supported task modes.
-- Checking optional scheduling values when present.
+- Checking that "urgency" is an integer from 1 to 4.
+- Checking that "mode" matches one of the three supported values.
+- Checking that "activation", when present, is a non-negative integer representing a Unix timestamp in milliseconds.
+- Checking that "anchor", when present, follows the 24-hour "HH:mm" format, with hours from "00" to "23" and minutes from "00" to "59".
+- Rejecting undefined fields that are not part of the ".tddy" format.
 
+The published JSON Schema provides machine-readable validation rules for compatible implementations.
 The required header value is:
 
 `TODODONEYET_TASK`
@@ -248,7 +253,7 @@ Actual sharing and receiving capabilities depend on the operating system and the
 
 ## 15. Importing Shared Tasks
 
-Compatible applications should allow users to open or import `.tddy` files received through supported sharing methods.
+Applications should only import files that pass the required ".tddy" validation rules. Receiving or opening a file does not guarantee compatibility. If a file contains invalid JSON, an incorrect header, unsupported values, or undefined fields, the application should reject it and provide an appropriate error message.
 
 A recommended import process is:
 
