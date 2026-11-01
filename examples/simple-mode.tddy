@@ -1,0 +1,8 @@
+{
+"header": "TODODONEYET_TASK",
+"title": "Pay electricity bill",
+"description": "Pay the monthly electricity bill",
+"urgency": 2,
+"mode": "SIMPLE_MODE",
+"activation": 1790031600000
+}
